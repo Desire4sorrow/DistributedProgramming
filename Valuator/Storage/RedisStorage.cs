@@ -9,6 +9,7 @@ namespace Valuator
     {
         private readonly ILogger<RedisStorage> _logger;
         private readonly IConnectionMultiplexer _connectionMultiplexer;
+        private readonly RedisKey _textIdentifiersKey = "textIdentifiers";
         private readonly IDatabase _db;
         public RedisStorage(ILogger<RedisStorage> logger)
         {
@@ -16,16 +17,16 @@ namespace Valuator
             _connectionMultiplexer = ConnectionMultiplexer.Connect("localhost, allowAdmin=true");
 
         }
-        public string Load(string key)
-        {
-            IDatabase db = _connectionMultiplexer.GetDatabase();
-            return db.StringGet(key);
-        }
-
         public void Store(string key, string value)
         {
             IDatabase db = _connectionMultiplexer.GetDatabase();
             db.StringSet(key, value);
+        }
+
+        public void StoreKey(string key)
+        {
+            IDatabase db = _connectionMultiplexer.GetDatabase();
+            db.ListRightPush(_textIdentifiersKey, key);
         }
 
         public bool Indeed(string prefix, string value)
@@ -36,6 +37,19 @@ namespace Valuator
 
             return foundation;
         }
+
+        public List<string> TextSignes()
+        {
+            IDatabase db = _connectionMultiplexer.GetDatabase();
+            return db.ListRange(_textIdentifiersKey).Select(x => x.ToString()).ToList();
+        }
+
+        public string Load(string key)
+        {
+            IDatabase db = _connectionMultiplexer.GetDatabase();
+            return db.StringGet(key);
+        }
+
 
     }
 }

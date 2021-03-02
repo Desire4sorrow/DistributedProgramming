@@ -30,30 +30,44 @@ namespace Valuator.Pages
 
             string id = Guid.NewGuid().ToString();
 
-            double GetRank(string text)
-            {
-                int lettersCount = text.Count(char.IsLetter);
-
-                return Math.Round(((text.Length - lettersCount) / (double)text.Length), 3);
-            }
-
             string rankKey = "RANK-" + id;
             string rank = GetRank(text).ToString();
 
             _storage.Store(rankKey, rank);
 
-            string similarityKey = "SIMILARITY-" + id;
- 
-            if (_storage.Indeed("TEXT-", text))
+            string similarityKey = "SIMILARITY-" + id; //реорганизация принципа подсчета 
+            double similarity = GetSimilarity(text);
+
+            _storage.Store(similarityKey, similarity.ToString()); //преобразуем для корректного отображения
+
+            if (similarity == 0) //переработка метода сохранения текста
             {
-                _storage.Store(similarityKey, "1");
-            }
-            else
-            {
-                _storage.Store(similarityKey, "0");
+                string textKey = "TEXT-" + id;
+                _storage.Store(textKey, text);
+                _storage.StoreKey(textKey);
             }
 
             return Redirect($"summary?id={id}");
+        }
+        double GetRank(string text) 
+        {
+            int lettersCount = text.Count(char.IsLetter);
+
+            return Math.Round(((text.Length - lettersCount) / (double)text.Length), 3);
+        }
+        double GetSimilarity(string text)
+        {
+            var keys = _storage.TextSignes();
+
+            foreach (var key in keys)
+            {
+                if (_storage.Load(key) == text)
+                {
+                    return 1;
+                }
+            }
+
+            return 0;
         }
     }
 }
