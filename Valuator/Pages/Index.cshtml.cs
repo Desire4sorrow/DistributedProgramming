@@ -38,7 +38,7 @@ namespace Valuator.Pages
 
             string textKey = "TEXT-" + id;
             _storage.Store(textKey, text);
-            _storage.StoreKey(textKey);
+            _storage.Load(textKey);
 
             return Redirect($"summary?id={id}");
         }
@@ -50,8 +50,8 @@ namespace Valuator.Pages
         }
         double GetSimilarity(string text)
         {
-            var abc = _storage.TextSignes("TEXT-", text);
-            if (abc)
+            var similarity = _storage.TextSignes("TEXT-", text);
+            if (similarity)
             {
                 return 1;
             }
