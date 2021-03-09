@@ -7,14 +7,10 @@ namespace Valuator
 {
     public class RedisStorage: IStorage
     {
-        private readonly ILogger<RedisStorage> _logger;
-        private readonly IConnectionMultiplexer _connectionMultiplexer;
-        private readonly RedisKey _textIdentifiersKey = "textIdentifiers";
-        private readonly IDatabase _db;
-        public RedisStorage(ILogger<RedisStorage> logger)
+        private readonly IConnectionMultiplexer _connectionMultiplexer = ConnectionMultiplexer.Connect("localhost, allowAdmin=true");
+
+        public RedisStorage()
         {
-            _logger = logger;
-            _connectionMultiplexer = ConnectionMultiplexer.Connect("localhost, allowAdmin=true");
 
         }
         public void Store(string key, string value)
@@ -23,25 +19,18 @@ namespace Valuator
             db.StringSet(key, value);
         }
 
-        public void StoreKey(string key)
+        public string StoreKey(string key)
         {
             IDatabase db = _connectionMultiplexer.GetDatabase();
-            db.ListRightPush(_textIdentifiersKey, key);
+            return db.StringGet(key);
         }
 
-        public bool Indeed(string prefix, string value)
-        {
-            var connection = _connectionMultiplexer.GetServer("localhost", 6379);
-            var values = connection.Keys(pattern: "*" + prefix + "*").Select(x => Load(x)).ToList();
-            bool foundation = values.Exists(x => x == value);
-
-            return foundation;
-        }
-
-        public List<string> TextSignes()
+        public bool TextSignes(string prefix, string text)
         {
             IDatabase db = _connectionMultiplexer.GetDatabase();
-            return db.ListRange(_textIdentifiersKey).Select(x => x.ToString()).ToList();
+            var _server = _connectionMultiplexer.GetServer("localhost", 6379);
+            var keys = _server.Keys(pattern: "*" + prefix + "*");
+            return keys.Select(x => StoreKey(x)).Where(x => x == text).Count() > 0;
         }
 
         public string Load(string key)

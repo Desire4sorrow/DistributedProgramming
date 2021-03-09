@@ -10,12 +10,10 @@ namespace Valuator.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly IStorage _storage;
 
-        public IndexModel(ILogger<IndexModel> logger, IStorage storage)
+        public IndexModel( IStorage storage)
         {
-            _logger = logger;
             _storage = storage;
         }
 
@@ -26,8 +24,6 @@ namespace Valuator.Pages
 
         public IActionResult OnPost(string text)
         {
-            _logger.LogDebug(text);
-
             string id = Guid.NewGuid().ToString();
 
             string rankKey = "RANK-" + id;
@@ -40,12 +36,9 @@ namespace Valuator.Pages
 
             _storage.Store(similarityKey, similarity.ToString()); //преобразуем для корректного отображения
 
-            if (similarity == 0) //переработка метода сохранения текста
-            {
-                string textKey = "TEXT-" + id;
-                _storage.Store(textKey, text);
-                _storage.StoreKey(textKey);
-            }
+            string textKey = "TEXT-" + id;
+            _storage.Store(textKey, text);
+            _storage.StoreKey(textKey);
 
             return Redirect($"summary?id={id}");
         }
@@ -57,14 +50,10 @@ namespace Valuator.Pages
         }
         double GetSimilarity(string text)
         {
-            var keys = _storage.TextSignes();
-
-            foreach (var key in keys)
+            var abc = _storage.TextSignes("TEXT-", text);
+            if (abc)
             {
-                if (_storage.Load(key) == text)
-                {
-                    return 1;
-                }
+                return 1;
             }
 
             return 0;
