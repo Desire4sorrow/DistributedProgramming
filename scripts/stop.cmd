@@ -1,4 +1,4 @@
-#скрипт остановки 
 taskkill /f /im valuator.exe 
 
-/d..\nginx\ nginx -s stop 
+cd ..\nginx\
+nginx -s stop
