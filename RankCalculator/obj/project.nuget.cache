@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YomeZ7ohJXNx+1z02pQE4hRuV0qG3U4MfjKQx79/ELOQyh4x+Kc81rpd59NC9xZ5UzDv4A8H+DiwSf1fLIpfeQ==",
+  "dgSpecHash": "Dqu59Yw0aHsLXcKeFm9EdX0MFoCgkp+yxOiUWo0q+3XF1bo1pf+VWy64Hx20FF0Jsgd4IefVuG1rnlHH4gbZ5Q==",
   "success": true,
-  "projectFilePath": "C:\\dev\\RankCalculator\\RankCalculator.csproj",
+  "projectFilePath": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\RankCalculator\\RankCalculator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Руслан\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\Руслан\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",

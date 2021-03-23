@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\Valuator\\Valuator.csproj": {}
+    "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\Valuator.csproj": {}
   },
   "projects": {
-    "C:\\dev\\Valuator\\Valuator.csproj": {
+    "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\Valuator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\Valuator\\Valuator.csproj",
+        "projectUniqueName": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\Valuator.csproj",
         "projectName": "Valuator",
-        "projectPath": "C:\\dev\\Valuator\\Valuator.csproj",
+        "projectPath": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\Valuator.csproj",
         "packagesPath": "C:\\Users\\Руслан\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\Valuator\\obj\\",
+        "outputPath": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Руслан\\AppData\\Roaming\\NuGet\\NuGet.Config",

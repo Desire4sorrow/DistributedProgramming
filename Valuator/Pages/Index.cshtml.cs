@@ -39,7 +39,7 @@ namespace Valuator.Pages
             _storage.Load(textKey);
 
             CancellationTokenSource cts = new CancellationTokenSource();
-            Task.Factory.StartNew(() => TaskCalculatingRank(id), cts.Token);
+            await TaskCalculatingRank(id);
 
             return Redirect($"summary?id={id}");
         }

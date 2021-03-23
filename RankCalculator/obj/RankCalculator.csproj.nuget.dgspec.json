@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\RankCalculator\\RankCalculator.csproj": {}
+    "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\RankCalculator\\RankCalculator.csproj": {}
   },
   "projects": {
-    "C:\\dev\\RankCalculator\\RankCalculator.csproj": {
+    "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\RankCalculator\\RankCalculator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\RankCalculator\\RankCalculator.csproj",
+        "projectUniqueName": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\RankCalculator\\RankCalculator.csproj",
         "projectName": "RankCalculator",
-        "projectPath": "C:\\dev\\RankCalculator\\RankCalculator.csproj",
+        "projectPath": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\RankCalculator\\RankCalculator.csproj",
         "packagesPath": "C:\\Users\\Руслан\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\RankCalculator\\obj\\",
+        "outputPath": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\RankCalculator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Руслан\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\dev\\Valuator\\Valuator.csproj": {
-                "projectPath": "C:\\dev\\Valuator\\Valuator.csproj"
+              "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\Valuator.csproj": {
+                "projectPath": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\Valuator.csproj"
               }
             }
           }
@@ -68,14 +68,14 @@
         }
       }
     },
-    "C:\\dev\\Valuator\\Valuator.csproj": {
+    "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\Valuator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\Valuator\\Valuator.csproj",
+        "projectUniqueName": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\Valuator.csproj",
         "projectName": "Valuator",
-        "projectPath": "C:\\dev\\Valuator\\Valuator.csproj",
+        "projectPath": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\Valuator.csproj",
         "packagesPath": "C:\\Users\\Руслан\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\Valuator\\obj\\",
+        "outputPath": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Valuator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Руслан\\AppData\\Roaming\\NuGet\\NuGet.Config",
