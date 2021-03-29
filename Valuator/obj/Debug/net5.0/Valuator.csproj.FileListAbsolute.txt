@@ -240,3 +240,5 @@ C:\dev\Valuator\obj\Debug\net5.0\Valuator.dll
 C:\dev\Valuator\obj\Debug\net5.0\ref\Valuator.dll
 C:\dev\Valuator\obj\Debug\net5.0\Valuator.pdb
 C:\dev\Valuator\obj\Debug\net5.0\Valuator.genruntimeconfig.cache
+C:\Users\Руслан\Documents\GitHub\DistributedProgramming\Valuator\bin\Debug\net5.0\Infrastructure.dll
+C:\Users\Руслан\Documents\GitHub\DistributedProgramming\Valuator\bin\Debug\net5.0\Infrastructure.pdb

@@ -1568,6 +1568,19 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "StackExchange.Redis": "2.2.4"
+        },
+        "compile": {
+          "bin/placeholder/Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -5569,10 +5582,16 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Infrastructure/Infrastructure/Infrastructure.csproj",
+      "msbuildProject": "../Infrastructure/Infrastructure/Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Infrastructure >= 1.0.0",
       "NATS.Client >= 0.12.0",
       "StackExchange.Redis >= 2.2.4"
     ]
@@ -5603,7 +5622,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Infrastructure\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Руслан\\Documents\\GitHub\\DistributedProgramming\\Infrastructure\\Infrastructure\\Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
