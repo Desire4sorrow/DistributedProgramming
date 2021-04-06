@@ -10,7 +10,11 @@ namespace Infrastructure.Storage
     public class RedisStorage : IStorage
     {
         private readonly IConnectionMultiplexer _connectionMultiplexer = ConnectionMultiplexer.Connect("localhost, allowAdmin=true");
-
+        private IConnectionMultiplexer _connection;
+        private IConnectionMultiplexer _connectionRu;
+        private IConnectionMultiplexer _connEu;
+        private IConnectionMultiplexer _connOther;
+        private readonly string _allTextsKey = "allTextsKey";
         public RedisStorage()
         {
 
