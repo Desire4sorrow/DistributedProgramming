@@ -9,14 +9,20 @@ namespace Infrastructure.Storage
 {
     public class RedisStorage : IStorage
     {
-        private readonly IConnectionMultiplexer _connectionMultiplexer = ConnectionMultiplexer.Connect("localhost, allowAdmin=true");
+        private readonly IConnectionMultiplexer _connectionMultiplexer;
+
         private IConnectionMultiplexer _connection;
-        private IConnectionMultiplexer _connectionRu;
-        private IConnectionMultiplexer _connEu;
-        private IConnectionMultiplexer _connOther;
-        private readonly string _allTextsKey = "allTextsKey";
+        private IConnectionMultiplexer _connectionRus;
+        private IConnectionMultiplexer _connectionEu;
+        private IConnectionMultiplexer _connectionOther;
+
+        private readonly string _setTextKeys = Constants.SetTextKeys;
         public RedisStorage()
         {
+            _connectionMultiplexer = ConnectionMultiplexer.Connect("localhost, allowAdmin=true");
+            _connectionRus = ConnectionMultiplexer.Connect(Environment.GetEnvironmentVariable(Constants.RusDB, EnvironmentVariableTarget.User));
+            _connectionEu = ConnectionMultiplexer.Connect(Environment.GetEnvironmentVariable(Constants.EUDB, EnvironmentVariableTarget.User));
+            _connectionOther = ConnectionMultiplexer.Connect(Environment.GetEnvironmentVariable(Constants.OtherDB, EnvironmentVariableTarget.User));
 
         }
         public void Store(string key, string value)
@@ -33,9 +39,9 @@ namespace Infrastructure.Storage
             return keys.Select(x => Load(x)).Where(x => x == text).Any();
         }
 
-        public string Load(string key)
+        public string Load(string sKey, string key)
         {
-            IDatabase db = _connectionMultiplexer.GetDatabase();
+            IDatabase db = sKey.GetDatabase();
             return db.StringGet(key);
         }
 
@@ -44,5 +50,6 @@ namespace Infrastructure.Storage
             IDatabase db = _connectionMultiplexer.GetDatabase();
             return db.KeyExists(key);
         }
+
     }
 }

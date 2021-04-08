@@ -8,9 +8,9 @@ namespace Infrastructure.Storage
 {
      public interface IStorage
      {
-         void Store(string key, string value);
+         void Store(string sKey, string key, string value);
          bool TextSignes(string prefix, string text);
-         string Load(string key);
+         string Load(string sKey, string key);
          bool CheckingKey(string key);
      }
 }
