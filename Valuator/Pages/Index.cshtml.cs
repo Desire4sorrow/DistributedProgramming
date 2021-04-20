@@ -28,18 +28,19 @@ namespace Valuator.Pages
 
         }
 
-        public async Task<IActionResult> OnPostAsync(string text)
+        public async Task<IActionResult> OnPostAsync(string text, string sKey)
         {
-            string id = Guid.NewGuid().ToString();
+            string id = Guid.NewGuid().ToString();       
 
-            string similarityKey = Constants.SimilarityKey + id; //реорганизация принципа подсчета 
+            string similarityKey = Constants.SimilarityKey + id; //реорганизация принципа подсчета  
             double similarity = GetSimilarity(text);
 
-            _storage.Store(similarityKey, similarity.ToString()); //преобразуем для корректного отображения
+            _storage.StoreSKey(id, sKey);
+            _storage.Store(sKey, similarityKey, similarity.ToString()); //преобразуем для корректного отображения
 
             string textKey = Constants.TextKey + id;
-            _storage.Store(textKey, text);
-            _storage.Load(textKey);
+            _storage.Store(sKey, textKey, text);
+            _storage.StoreValue("SET_VALUE", sKey, text);
 
             CancellationTokenSource cts = new CancellationTokenSource();
             await TaskCalculatingRank(id);
@@ -66,13 +67,18 @@ namespace Valuator.Pages
         }
         double GetSimilarity(string text)
         {
-            var similarity = _storage.TextSignes("TEXT-", text);
-            if (similarity)
+            if (
+             _storage.CheckingValue(Constants.TextKey, Constants.RusId, text) ||
+             _storage.CheckingValue(Constants.TextKey, Constants.EUId, text) ||
+             _storage.CheckingValue(Constants.TextKey, Constants.OtherId, text)
+             )
             {
                 return 1;
             }
-
-            return 0;
+            else
+            {
+                return 0;
+            }
         }
 
         private async Task TaskSendingSimilarity(SimilarityValues sendSimilarity)

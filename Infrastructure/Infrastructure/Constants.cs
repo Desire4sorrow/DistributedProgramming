@@ -12,6 +12,7 @@ namespace Infrastructure
         public const string SimilarityAssignment = "valuator.similarity.similarity";
 
         public const string RankCalculate = "valuator.calculate.rank";
+        public const string RankValue = "rank_calculator";
 
         public const string RusId = "RUS";
         public const string EUId = "EU";
