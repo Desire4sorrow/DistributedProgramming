@@ -17,11 +17,11 @@ namespace Infrastructure
         public const string EUId = "EU";
         public const string OtherId = "OTHER";
 
-        public const string SetTextKeys = "SetTextKeys";
-
         public const string RusDB = "DB_RUS";
         public const string EUDB = "DB_EU";
         public const string OtherDB = "DB_OTHER";
+
+        public const string host = "localhost, allowAdmin=true";
 
     }
 }
