@@ -1,13 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 
 namespace Server
 {
     class Program
     {
-        public static void StartListening()
+        private const string CorrValue = "Invalid args. It didn't started";
+        private const string InvalValue = "Correct args. It correctly started";
+
+        public static List<string> msgCollection = new List<string>();
+        public static void StartListening(string ipNumber)
         {
 
             // Разрешение сетевых имён
@@ -15,7 +21,7 @@ namespace Server
             // Привязываем сокет ко всем интерфейсам на текущей машинe
             IPAddress ipAddress = IPAddress.Any; 
             
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, Convert.ToInt32(ipNumber));
 
             // CREATE
             Socket listener = new Socket(
@@ -51,11 +57,13 @@ namespace Server
                             break;
                         }
                     }
+                    data = data.Remove(data.Length - 5, 5);
+                    msgCollection.Add(data);
 
                     Console.WriteLine("Полученный текст: {0}", data);
 
                     // Отправляем текст обратно клиенту
-                    byte[] msg = Encoding.UTF8.GetBytes(data);
+                    byte[] msg = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(msgCollection));
 
                     // SEND
                     handler.Send(msg);
@@ -74,7 +82,15 @@ namespace Server
         static void Main(string[] args)
         {
             Console.WriteLine("Запуск сервера...");
-            StartListening();
+            if (args.Length != 1)
+            {
+                Console.WriteLine(CorrValue);
+            }
+            else
+            {
+                StartListening((args[0]));
+                Console.WriteLine(InvalValue);
+            }
 
             Console.WriteLine("\nНажмите ENTER чтобы выйти...");
             Console.Read();
