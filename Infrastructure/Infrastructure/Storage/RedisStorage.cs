@@ -10,7 +10,6 @@ namespace Infrastructure.Storage
     public class RedisStorage : IStorage
     {
         private readonly IConnectionMultiplexer _connectionMultiplexer = ConnectionMultiplexer.Connect(Constants.host);
-        private readonly IDatabase _db;
         private readonly Dictionary<string, IConnectionMultiplexer> _dbDic;
 
         public RedisStorage()
@@ -67,9 +66,9 @@ namespace Infrastructure.Storage
 
             if (_dbDic.TryGetValue(sKey, out _connection))
             {
-                IDatabase db = _connection.GetDatabase();
                 return _connection;
             }
+
             else
             {
                 return _connectionMultiplexer;

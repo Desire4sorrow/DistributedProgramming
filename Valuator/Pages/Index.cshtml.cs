@@ -36,13 +36,12 @@ namespace Valuator.Pages
             double similarity = GetSimilarity(text);
 
             _storage.StoreSKey(id, sKey);
-            _storage.Store(sKey, similarityKey, similarity.ToString()); //преобразуем для корректного отображения
-
+            
             string textKey = Constants.TextKey + id;
+            _storage.Store(sKey, similarityKey, similarity.ToString()); 
             _storage.Store(sKey, textKey, text);
             _storage.StoreValue("SET_VALUE", sKey, text);
 
-            CancellationTokenSource cts = new CancellationTokenSource();
             await TaskCalculatingRank(id);
 
             SimilarityValues sendSimilarity = new SimilarityValues(id, similarity);
