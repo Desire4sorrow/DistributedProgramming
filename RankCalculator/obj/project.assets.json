@@ -1587,8 +1587,7 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Infrastructure": "1.0.0",
-          "NATS.Client": "0.12.0",
-          "StackExchange.Redis": "2.2.4"
+          "NATS.Client": "0.12.0"
         },
         "compile": {
           "bin/placeholder/Valuator.dll": {}
@@ -5681,7 +5680,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

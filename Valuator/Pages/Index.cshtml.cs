@@ -41,7 +41,6 @@ namespace Valuator.Pages
             _storage.Store(textKey, text);
             _storage.Load(textKey);
 
-            CancellationTokenSource cts = new CancellationTokenSource();
             await TaskCalculatingRank(id);
 
             SimilarityValues sendSimilarity = new SimilarityValues(id, similarity);
