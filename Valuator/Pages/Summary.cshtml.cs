@@ -27,9 +27,8 @@ namespace Valuator.Pages
 
         public void OnGet(string id)
         {
-            _logger.LogDebug($"LOOKUP: {id}, {_storage.GetSKey(id)}.");
-
             string getSKey = _storage.GetSKey(id); //получаем значения ключа 
+            _logger.LogDebug($"LOOKUP: {id}, {_storage.GetSKey(id)}.");
 
             //TODO: проинициализировать свойства Rank и Similarity сохранёнными в БД значениями
 

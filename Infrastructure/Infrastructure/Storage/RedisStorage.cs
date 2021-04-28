@@ -9,11 +9,12 @@ namespace Infrastructure.Storage
 {
     public class RedisStorage : IStorage
     {
-        private readonly IConnectionMultiplexer _connectionMultiplexer = ConnectionMultiplexer.Connect(Constants.host);
+        private readonly IConnectionMultiplexer _connectionMultiplexer;
         private readonly Dictionary<string, IConnectionMultiplexer> _dbDic;
 
         public RedisStorage()
         {
+            _connectionMultiplexer = ConnectionMultiplexer.Connect(Constants.host);
             _dbDic = new Dictionary<string, IConnectionMultiplexer>() 
             {
                 {Constants.RusId, ConnectionMultiplexer.Connect(Environment.GetEnvironmentVariable(Constants.RusDB, EnvironmentVariableTarget.User)) },

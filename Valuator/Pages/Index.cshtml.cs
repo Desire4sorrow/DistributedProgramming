@@ -18,7 +18,7 @@ namespace Valuator.Pages
     {
         private readonly IStorage _storage;
 
-        public IndexModel( IStorage storage)
+        public IndexModel(IStorage storage)
         {
             _storage = storage;
         }
@@ -30,6 +30,11 @@ namespace Valuator.Pages
 
         public async Task<IActionResult> OnPostAsync(string text, string sKey)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return Redirect("/");
+            }
+
             string id = Guid.NewGuid().ToString();       
 
             string similarityKey = Constants.SimilarityKey + id; //реорганизация принципа подсчета  
