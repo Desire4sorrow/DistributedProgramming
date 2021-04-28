@@ -29,10 +29,10 @@ namespace Infrastructure.Storage
             IDatabase db = GetConnection(sKey).GetDatabase();
             db.StringSet(key, value);
         }
-        public void StoreValue(string valueId, string sKey, string value)
+        public void StoreValue(string keyText, string sKey, string value)
         {
             IDatabase db = GetConnection(sKey).GetDatabase();
-            db.SetAdd(valueId, value);
+            db.SetAdd(keyText, value);
         }
         public string Load(string sKey, string key)
         {

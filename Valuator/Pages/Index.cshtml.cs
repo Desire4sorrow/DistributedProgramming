@@ -35,17 +35,17 @@ namespace Valuator.Pages
                 return Redirect("/");
             }
 
-            string id = Guid.NewGuid().ToString();       
+            string id = Guid.NewGuid().ToString();
 
             string similarityKey = Constants.SimilarityKey + id; //реорганизация принципа подсчета  
             double similarity = GetSimilarity(text);
 
             _storage.StoreSKey(id, sKey);
-            
+
             string textKey = Constants.TextKey + id;
-            _storage.Store(sKey, similarityKey, similarity.ToString()); 
+            _storage.Store(sKey, similarityKey, similarity.ToString());
             _storage.Store(sKey, textKey, text);
-            _storage.StoreValue("SET_VALUE", sKey, text);
+            _storage.StoreValue(Constants.TextKey, sKey, text);
 
             await TaskCalculatingRank(id);
 
@@ -69,13 +69,12 @@ namespace Valuator.Pages
                 connection.Close();
             }
         }
+
         double GetSimilarity(string text)
         {
-            if (
-             _storage.CheckingValue(Constants.TextKey, Constants.RusId, text) ||
-             _storage.CheckingValue(Constants.TextKey, Constants.EUId, text) ||
-             _storage.CheckingValue(Constants.TextKey, Constants.OtherId, text)
-             )
+            if (_storage.CheckingValue(Constants.TextKey, Constants.RusId, text) ||
+                _storage.CheckingValue(Constants.TextKey, Constants.EUId, text) ||
+                _storage.CheckingValue(Constants.TextKey, Constants.OtherId, text))
             {
                 return 1;
             }
