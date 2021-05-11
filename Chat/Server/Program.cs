@@ -9,10 +9,6 @@ namespace Server
 {
     class Program
     {
-        private const string CorrValue = "Invalid args. It didn't started";
-        private const string InvalValue = "Correct args. It correctly started";
-
-        public static List<string> msgCollection = new List<string>();
         public static void StartListening(string ipNumber)
         {
 
@@ -22,6 +18,7 @@ namespace Server
             IPAddress ipAddress = IPAddress.Any; 
             
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, Convert.ToInt32(ipNumber));
+            List<string> msgCollection = new List<string>();
 
             // CREATE
             Socket listener = new Socket(
@@ -39,11 +36,10 @@ namespace Server
 
                 while (true)
                 {
-                    Console.WriteLine("Ожидание соединения клиента...");
+
                     // ACCEPT
                     Socket handler = listener.Accept();
 
-                    Console.WriteLine("Получение данных...");
                     byte[] buf = new byte[1024];
                     string data = null;
                     while (true)
@@ -63,7 +59,9 @@ namespace Server
                     Console.WriteLine("Полученный текст: {0}", data);
 
                     // Отправляем текст обратно клиенту
-                    byte[] msg = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(msgCollection));
+                    string msgJson = JsonSerializer.Serialize(msgCollection);
+
+                    byte[] msg = Encoding.UTF8.GetBytes(msgJson);
 
                     // SEND
                     handler.Send(msg);
@@ -81,19 +79,12 @@ namespace Server
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Запуск сервера...");
             if (args.Length != 1)
             {
-                Console.WriteLine(CorrValue);
+                throw new ArgumentException("Invalid arguments count");
             }
-            else
-            {
-                StartListening((args[0]));
-                Console.WriteLine(InvalValue);
-            }
-
-            Console.WriteLine("\nНажмите ENTER чтобы выйти...");
-            Console.Read();
+            
+            StartListening(args[0]);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Client
     class Program
     {
         private const string defaultHost = "localhost";
-        public static void StartClient(string server, string ipNumber, string message)
+        public static void StartClient(string server, int ipNumber, string message)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace Client
                     ipAddress = IPAddress.Parse(server);
                 }
 
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, Convert.ToInt32(ipNumber));
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress, ipNumber);
 
                 // CREATE
                 Socket sender = new Socket(
@@ -40,28 +40,24 @@ namespace Client
                     // CONNECT
                     sender.Connect(remoteEP);
 
-                    Console.WriteLine("Удалённый адрес подключения сокета: {0}",
-                        sender.RemoteEndPoint.ToString());
-
                     // Подготовка данных к отправке
-                    byte[] msg = Encoding.UTF8.GetBytes(message);
 
                     // SEND
-                    int bytesSent = sender.Send(msg);
+                    int bytesSent = sender.Send(Encoding.UTF8.GetBytes(message));
 
                     // RECEIVE
                     byte[] buf = new byte[1024];
 
                     StringBuilder sb = new StringBuilder(); //для использования изменяемого прототипа строки(послед. символов)
 
-                    while (sender.Available > 0)
+                    do
                     {
                         int bytes = sender.Receive(buf, buf.Length, 0);
                         sb.Append(Encoding.UTF8.GetString(buf, 0, bytes));
                     }
-
-                    var sbCollection = JsonSerializer.Deserialize<List<string>>
-                        (sb.ToString());
+                    while (sender.Available > 0);
+                    
+                    var sbCollection = JsonSerializer.Deserialize<List<string>>(sb.ToString());
                     foreach (var element in sbCollection)
                     {
                         Console.WriteLine(element);
@@ -94,7 +90,14 @@ namespace Client
 
         static void Main(string[] args)
         {
-            StartClient(args[0], (args[1]), args[2]);
+            if (args.Length != 3)
+            {
+                Console.WriteLine("Incorrect args");
+            }
+            else
+            {
+                StartClient(args[0], Int32.Parse(args[1]), args[2]);
+            }
         }
     }
 }
