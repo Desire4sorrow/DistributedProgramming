@@ -9,7 +9,9 @@ namespace Server
 {
     class Program
     {
-        public static void StartListening(string ipNumber)
+        public static List<string> msgCollection = new List<string>();
+        private const string Eof = "<EOF>";
+        public static void StartListening(int ipNumber)
         {
 
             // Разрешение сетевых имён
@@ -17,8 +19,7 @@ namespace Server
             // Привязываем сокет ко всем интерфейсам на текущей машинe
             IPAddress ipAddress = IPAddress.Any; 
             
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, Convert.ToInt32(ipNumber));
-            List<string> msgCollection = new List<string>();
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, ipNumber); 
 
             // CREATE
             Socket listener = new Socket(
@@ -48,7 +49,7 @@ namespace Server
                         int bytesRec = handler.Receive(buf);
 
                         data += Encoding.UTF8.GetString(buf, 0, bytesRec);
-                        if (data.IndexOf("<EOF>") > -1)
+                        if (data.IndexOf(Eof) > -1)
                         {
                             break;
                         }
@@ -84,7 +85,7 @@ namespace Server
                 throw new ArgumentException("Invalid arguments count");
             }
             
-            StartListening(args[0]);
+            StartListening(Int32.Parse(args[0]));
         }
     }
 }

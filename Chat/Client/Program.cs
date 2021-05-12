@@ -10,6 +10,7 @@ namespace Client
     class Program
     {
         private const string defaultHost = "localhost";
+        private const string Eof = "<EOF>";
         public static void StartClient(string server, int ipNumber, string message)
         {
             try
@@ -41,23 +42,25 @@ namespace Client
                     sender.Connect(remoteEP);
 
                     // Подготовка данных к отправке
-
+                    byte[] msg = Encoding.UTF8.GetBytes(message + Eof);
                     // SEND
-                    int bytesSent = sender.Send(Encoding.UTF8.GetBytes(message));
+                    int bytesSent = sender.Send(msg);
 
                     // RECEIVE
                     byte[] buf = new byte[1024];
 
-                    StringBuilder sb = new StringBuilder(); //для использования изменяемого прототипа строки(послед. символов)
+                    int byteCounter = 0;
+                    string strCollection = null;
 
                     do
                     {
-                        int bytes = sender.Receive(buf, buf.Length, 0);
-                        sb.Append(Encoding.UTF8.GetString(buf, 0, bytes));
+                        byteCounter = sender.Receive(buf);
+                        strCollection += Encoding.UTF8.GetString(buf, 0, byteCounter);
                     }
-                    while (sender.Available > 0);
-                    
-                    var sbCollection = JsonSerializer.Deserialize<List<string>>(sb.ToString());
+                    while (byteCounter > 0);
+
+                    var sbCollection = JsonSerializer.Deserialize<List<string>>(strCollection);
+
                     foreach (var element in sbCollection)
                     {
                         Console.WriteLine(element);
