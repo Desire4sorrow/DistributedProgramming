@@ -37,8 +37,6 @@ namespace Chain
             {
                 Console.WriteLine(e.Message);
             }
-
-            System.Console.ReadLine();
         }
 
         private static Params FindArgsFromParams(string[] args)
